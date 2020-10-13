@@ -53,7 +53,7 @@
   _.each = function(collection, iterator) {
     var isArray = false;
 
-    if (Array.isArray(collection) === true) {
+    if (Array.isArray(collection)) {
       isArray = true;
     }
 
@@ -102,11 +102,41 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    var result = [];
+
+    for (var i = 0; i < collection.length; i++) {
+      if (test(collection[i]) === false) {
+        result.push(collection[i]);
+      }
+    }
+
+    return result;
+
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    var result = [];
+
+    if (isSorted) {
+      for (var i = 0; i < array.length; i++) {
+        var currentElement = iterator(array[i]);
+        var compareElement = iterator(array[i - 1]);
+        if (compareElement !== currentElement) {
+          result.push(array[i]);
+        }
+      }
+
+    } else {
+      for (var i = 0; i < array.length; i++) {
+        if (result[array[i]] === undefined) {
+          result.push(array[i]);
+        }
+      }
+    }
+    return result;
   };
+
 
 
   // Return the results of applying an iterator to each element.
@@ -114,6 +144,25 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var isArray = false;
+    let result = [];
+
+    if (Array.isArray(collection)) {
+      isArray = true;
+    }
+
+    if (isArray) {
+
+      for (let i = 0; i < collection.length; i++) {
+        result.push(iterator(collection[i]));
+      }
+    } else {
+      for (let key in collection) {
+        result.push(iterator(collection[key]));
+      }
+    }
+
+    return result;
   };
 
   /*
@@ -155,6 +204,20 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+
+    if (accumulator === undefined) {
+      accumulator = collection[0];
+      for (var i = 1; i < collection.length; i++) {
+        accumulator = iterator(accumulator, collection[i]);
+      }
+      return accumulator;
+    }
+
+    for (var i = 0; i < collection.length; i++) {
+      accumulator = iterator(accumulator, collection[i]);
+    }
+    return accumulator;
+
   };
 
 
