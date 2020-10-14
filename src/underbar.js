@@ -89,52 +89,93 @@
   _.filter = function(collection, test) {
     var result = [];
 
-    for (var i = 0; i < collection.length; i++) {
-      if (test(collection[i]) === true) {
-        result.push(collection[i]);
+    _.each(collection, function(element) {
+      if (test(element)) {
+        result.push(element);
       }
-    }
-
+    });
     return result;
+
+    //PSEUDOCODE
+    // var result = [];
+
+    // for (var i = 0; i < collection.length; i++) {
+    //   if (test(collection[i]) === true) {
+    //     result.push(collection[i]);
+    //   }
+    // }
+
+    // return result;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+
     var result = [];
 
-    for (var i = 0; i < collection.length; i++) {
-      if (test(collection[i]) === false) {
-        result.push(collection[i]);
+    _.filter(collection, function(element) {
+      if (!test(element)) {
+        result.push(element);
       }
-    }
-
+    });
     return result;
 
+    //PSEUDOCODE
+    // var result = [];
+
+    // for (var i = 0; i < collection.length; i++) {
+    //   if (test(collection[i]) === false) {
+    //     result.push(collection[i]);
+    //   }
+    // }
+
+    // return result;
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+
     var result = [];
-
     if (isSorted) {
-      for (var i = 0; i < array.length; i++) {
-        var currentElement = iterator(array[i]);
-        var compareElement = iterator(array[i - 1]);
-        if (compareElement !== currentElement) {
+      _.each(array, function(item, i) {
+        var current = iterator(array[i]);
+        var previous = iterator(array[i - 1]);
+        if (current !== previous) {
           result.push(array[i]);
         }
-      }
-
+      });
     } else {
-      for (var i = 0; i < array.length; i++) {
-        if (result[array[i]] === undefined) {
-          result.push(array[i]);
+      _.filter(array, function(item, i) {
+        if (result[item] === undefined) {
+          result.push(item);
         }
-      }
+      });
     }
     return result;
+
+
+    //PSEUDOCODE
+    // var result = [];
+
+    // if (isSorted) {
+    //   for (var i = 0; i < array.length; i++) {
+    //     var currentElement = iterator(array[i]);
+    //     var compareElement = iterator(array[i - 1]);
+    //     if (compareElement !== currentElement) {
+    //       result.push(array[i]);
+    //     }
+    //   }
+
+    // } else {
+    //   for (var i = 0; i < array.length; i++) {
+    //     if (result[array[i]] === undefined) {
+    //       result.push(array[i]);
+    //     }
+    //   }
+    // }
+    // return result;
   };
 
 
@@ -144,25 +185,35 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
-    var isArray = false;
+
     let result = [];
 
-    if (Array.isArray(collection)) {
-      isArray = true;
-    }
-
-    if (isArray) {
-
-      for (let i = 0; i < collection.length; i++) {
-        result.push(iterator(collection[i]));
-      }
-    } else {
-      for (let key in collection) {
-        result.push(iterator(collection[key]));
-      }
-    }
-
+    _.each(collection, function(element) {
+      result.push(iterator(element));
+    });
     return result;
+
+
+    //PSEUDOCODE
+    // var isArray = false;
+    // let result = [];
+
+    // if (Array.isArray(collection)) {
+    //   isArray = true;
+    // }
+
+    // if (isArray) {
+
+    //   for (let i = 0; i < collection.length; i++) {
+    //     result.push(iterator(collection[i]));
+    //   }
+    // } else {
+    //   for (let key in collection) {
+    //     result.push(iterator(collection[key]));
+    //   }
+    // }
+
+    // return result;
   };
 
   /*
