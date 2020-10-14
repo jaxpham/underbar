@@ -139,17 +139,17 @@
 
     var result = [];
     if (isSorted) {
-      _.each(array, function(item, i) {
-        var current = iterator(array[i]);
-        var previous = iterator(array[i - 1]);
-        if (current !== previous) {
-          result.push(array[i]);
+      _.each(array, function(element, index) {
+        var currentElement = iterator(array[index]);
+        var previousElement = iterator(array[index - 1]);
+        if (currentElement !== previousElement) {
+          result.push(array[index]);
         }
       });
     } else {
-      _.filter(array, function(item, i) {
-        if (result[item] === undefined) {
-          result.push(item);
+      _.filter(array, function(element, index) {
+        if (result[element] === undefined) {
+          result.push(element);
         }
       });
     }
@@ -258,16 +258,31 @@
 
     if (accumulator === undefined) {
       accumulator = collection[0];
-      for (var i = 1; i < collection.length; i++) {
-        accumulator = iterator(accumulator, collection[i]);
-      }
+      _.each(collection, function(index, element) {
+        accumulator = iterator(accumulator, element);
+      });
       return accumulator;
     }
 
-    for (var i = 0; i < collection.length; i++) {
-      accumulator = iterator(accumulator, collection[i]);
-    }
+    _.each(collection, function(element) {
+      accumulator = iterator(accumulator, element);
+    });
     return accumulator;
+
+
+    //PSEUDOCODE
+    // if (accumulator === undefined) {
+    //   accumulator = collection[0];
+    //   for (var i = 1; i < collection.length; i++) {
+    //     accumulator = iterator(accumulator, collection[i]);
+    //   }
+    //   return accumulator;
+    // }
+
+    // for (var i = 0; i < collection.length; i++) {
+    //   accumulator = iterator(accumulator, collection[i]);
+    // }
+    // return accumulator;
 
   };
 
