@@ -147,7 +147,7 @@
         }
       });
     } else {
-      _.filter(array, function(element, index) {
+      _.each(array, function(element, index) {
         if (result[element] === undefined) {
           result.push(element);
         }
@@ -258,8 +258,10 @@
 
     if (accumulator === undefined) {
       accumulator = collection[0];
-      _.each(collection, function(index, element) {
-        accumulator = iterator(accumulator, element);
+      _.each(collection, function(element, index) {
+        if (index > 0) {
+          accumulator = iterator(accumulator, element);
+        }
       });
       return accumulator;
     }
