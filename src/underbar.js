@@ -96,7 +96,7 @@
     });
     return result;
 
-    //PSEUDOCODE
+    //PSEUDOCODE!
     // var result = [];
 
     // for (var i = 0; i < collection.length; i++) {
@@ -122,7 +122,7 @@
     });
     return result;
 
-    //PSEUDOCODE
+    //PSEUDOCODE!
     // var result = [];
 
     // for (var i = 0; i < collection.length; i++) {
@@ -156,7 +156,7 @@
     return result;
 
 
-    //PSEUDOCODE
+    //PSEUDOCODE!
     // var result = [];
 
     // if (isSorted) {
@@ -194,7 +194,7 @@
     return result;
 
 
-    //PSEUDOCODE
+    //PSEUDOCODE!
     // var isArray = false;
     // let result = [];
 
@@ -270,7 +270,7 @@
     return accumulator;
 
 
-    //PSEUDOCODE
+    //PSEUDOCODE!
     // if (accumulator === undefined) {
     //   accumulator = collection[0];
     //   for (var i = 1; i < collection.length; i++) {
