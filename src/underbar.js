@@ -323,51 +323,81 @@
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
 
-    if (collection.length === 0) {
-      return true;
-    }
-
-    var result = false;
-
-    if (iterator === undefined) {
-      for (var i = 0; i < collection.length; i++) {
-        if (collection[i]) {
-          result = true;
-        } else {
-          result = false;
-          break;
-        }
-      }
-      return result;
-    }
-
-    for (var i = 0; i < collection.length; i++) {
-      if (iterator(collection[i])) {
-        result = true;
+    return _.reduce(collection, function(accumulator, element) {
+      if (iterator === undefined) {
+        return accumulator && element;
       } else {
-        result = false;
-        break;
+        return !!iterator(element) && accumulator;
       }
-    }
-    return result;
+    }, true);
 
 
-    //input array
-    //output boolean
+    //PSEUDOCODE!
+    // var result = true;
 
-    //create a result boolean set to false
-    //iterate over the array
-    //if the elements pass the iterator test
-    //if it does set result true
-    //else result = true;
-    //break
-    //return result
+    // if (iterator === undefined) {
+    //   for (var i = 0; i < collection.length; i++) {
+    //     if (collection[i]) {
+    //       result = true;
+    //     } else {
+    //       result = false;
+    //       break;
+    //     }
+    //   }
+    //   return result;
+    // }
+
+    // for (var i = 0; i < collection.length; i++) {
+    //   if (iterator(collection[i])) {
+    //     result = true;
+    //   } else {
+    //     result = false;
+    //     break;
+    //   }
+    // }
+    // return result;
+
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+
+    return !(_.every(collection, function(element) {
+      if (iterator === undefined) {
+        return !element;
+      }
+      return !iterator(element);
+    }));
+
+
+    //PSEUDOCODE!
+    // var result = false;
+
+    // if (iterator === undefined) {
+    //   for (var i = 0; i < collection.length; i++) {
+    //     if (collection[i]) {
+    //       result = true;
+    //       break;
+    //     } else {
+    //       result = false;
+    //       break;
+    //     }
+    //   }
+    //   return result;
+    // }
+
+    // for (var i = 0; i < collection.length; i++) {
+    //   if (iterator(collection[i])) {
+    //     result = true;
+    //     break;
+    //   } else {
+    //     result = false;
+    //   }
+    // }
+    // return result;
+
   };
 
 
