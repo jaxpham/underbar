@@ -419,30 +419,52 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function(obj, ...src) {
+  _.extend = function(destination) {
 
-    Object.assign(obj, ...src);
-    return obj;
+    for (var i = 0; i < arguments.length; i++) {
+      var args = arguments[i];
+      for (var prop in args) {
+        if (args.hasOwnProperty(prop)) {
+          destination[prop] = args[prop];
+        }
+      }
+    }
+    return destination;
+
+    //PSEUDOCODE!
+    //Arguments - keyword to access all the parameters that were passed in--even if they aren't named in the function definition.
+    //For loop to loop over arguments
+    //Declare var and assign it to the arguments element
+    //For in loop to loop over properties in arguments
+    //If the arguments has a prop === true
+    //Set destination prop to the args prop
 
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  _.defaults = function(obj, source) {
+  _.defaults = function(destination) {
 
-    var prop;
-    obj = obj || {};
-    source = source || {};
-
-    for (prop in source) {
-      if (source.hasOwnProperty(prop)) {
-        if (obj[prop] === undefined) {
-          obj[prop] = source[prop];
+    for (var i = 0; i < arguments.length; i++) {
+      var args = arguments[i];
+      for (var prop in args) {
+        if (args.hasOwnProperty(prop)) {
+          if (destination[prop] === undefined) {
+            destination[prop] = args[prop];
+          }
         }
       }
     }
+    return destination;
 
-    return obj;
+    //PSEUDOCODE!
+    //Arguments - keyword to access all the parameters that were passed in--even if they aren't named in the function definition.
+    //For loop to loop over arguments
+    //Declare var and assign it to the arguments element
+    //For in loop to loop over properties in arguments
+    //If the arguments has a prop === true
+    //If destination prop is undefined
+    //Set destination prop to the args prop
 
   };
 
@@ -498,7 +520,13 @@
         return val;
       }
     };
+
+    //PSEUDOCODE!
+    //Takes a recursive factorial function to speed up the proccess since the results are cached (saved)
+    //Since we are memoizing objects we need to stringify it to create cache keys to make it unique otherwise it would be [Object object] and we can't use toString() since it'll still be [Object object]
+
   };
+
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
   //
@@ -511,6 +539,11 @@
     setTimeout(function() {
       func.apply(this, args);
     }, wait);
+
+    //PSEUDOCODE!
+    //Take all elements from the array starting at index 2 (arguments makes it an array object and the first element is a function and the second is number or time)
+    //The setTimeout() method - calls a function or evaluates an expresssion after a spcificied number of milliseconds
+    //setTimeout(callback function, time in milliseconds, param1, param2...)
 
   };
 
@@ -536,6 +569,8 @@
     }
     return newArr;
 
+    ////PSEUDOCODE!
+    //Used to re-arrange an array in a random order
   };
 
 
